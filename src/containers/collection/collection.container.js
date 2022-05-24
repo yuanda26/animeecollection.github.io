@@ -5,12 +5,12 @@ import {
     AddNewButton,
     ErrorText,
     InputCollection,
-    PageTitle,
     PopupContentWrapper,
     Wrapper,
 } from "./collection.styled";
 import { Images } from "../../assets";
-import { Search, CardList, Popup, Navs } from "../../components";
+import { CardList, Popup, Navs } from "../../components";
+import { isCollectionExist } from "../../utils/utils";
 
 const CollectionContainer = () => {
     const collection = JSON.parse(localStorage.getItem("collection"));
@@ -68,46 +68,46 @@ const CollectionContainer = () => {
         setShowPopup(!showPopup);
     };
 
-    const handleSearch = () => {
-        if (keyword.length > 2) console.log(keyword);
-    };
-
     const handleSave = () => {
         if (mode === "delete") {
-            console.log(mode, currentId);
-            const updatedCollection = collection.filter(
-                (item) => item.id !== currentId
-            );
+            const updatedCollection = collection.filter((item) => item.id !== currentId);
             localStorage.setItem( "collection", JSON.stringify(updatedCollection));
-
             handleClose();
         } else if (value !== "") {
             if (mode === "create") {
-                collection.push({
-                    id: uuidv4(),
-                    title: value,
-                    items: [],
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                });
-                localStorage.setItem("collection", JSON.stringify(collection));
+                const isExist = isCollectionExist(value);
+                if (isExist) {
+                    setError(`Collection with title '${value}' is already exist!`);
+                } else {
+                    collection.push({
+                        id: uuidv4(),
+                        title: value,
+                        items: [],
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                    });
+    
+                    localStorage.setItem("collection", JSON.stringify(collection));
+                    handleClose();
+                }
             } else if (mode === "update") {
-                const updatedCollection = collection.map((item) =>
-                    item.id === currentId
-                        ? {
-                              ...item,
-                              title: value,
-                              updatedAt: new Date().toISOString(),
-                          }
-                        : item
-                );
-                localStorage.setItem(
-                    "collection",
-                    JSON.stringify(updatedCollection)
-                );
+                const isExist = isCollectionExist(value);
+                if (isExist) {
+                    setError(`Collection with title '${value}' is already exist!`);
+                } else {
+                    const updatedCollection = collection.map((item) =>
+                        item.id === currentId
+                            ? {
+                                ...item,
+                                title: value,
+                                updatedAt: new Date().toISOString(),
+                            }
+                            : item
+                    );
+                    localStorage.setItem("collection", JSON.stringify(updatedCollection));
+                    handleClose();
+                }
             }
-
-            handleClose();
         } else {
             setError("Collection Title Must Not Empty");
         }
@@ -128,7 +128,6 @@ const CollectionContainer = () => {
     return (
         <Wrapper>
             <Navs title="Collection" />
-            <Search onChange={setKeyword} handleSearch={handleSearch} />
             <AddNewButton onClick={() => togglePopup("create")}>
                 Create New Collection
             </AddNewButton>

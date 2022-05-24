@@ -119,10 +119,10 @@ const CollectionDetailContainer = () => {
             {collection ? (
                 <>
                     <Navs title="Collection" />
-                    <PageTitle>{collection.title}</PageTitle>
                     <EditButton onClick={() => togglePopup("update")}>
                         Edit Collection Title
                     </EditButton>
+                    <PageTitle>{collection.title}</PageTitle>
                     <Card
                         data={collection.items}
                         deletable

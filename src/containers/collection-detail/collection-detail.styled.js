@@ -10,7 +10,7 @@ export const PageTitle = styled.h1`
     font-size: 3.2rem;
     font-weight: 700;
     letter-spacing: 0.01em;
-    padding: 25px 0 5px;
+    padding: 0 0 5px;
     margin: 0;
 `;
 
@@ -21,7 +21,7 @@ export const EditButton = styled.button`
     border: none;
     color: #fff;
     border-radius: 4px;
-    margin-bottom: 15px;
+    margin-bottom: 0;
 `;
 
 export const NotFound = styled.div`

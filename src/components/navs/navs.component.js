@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SVG } from "../../assets";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     NavGroup,
     NavItems,
@@ -10,15 +10,8 @@ import {
 } from "./navs.styled";
 
 const Navs = (props) => {
-    const location = useLocation();
-
     const [openNavs, setOpenNavs] = useState(false);
     const toggleNovbar = () => {
-        const [ currentPath ] = location.pathname
-            .split("/")
-            .filter((item) => item !== "");
-        
-        console.log(currentPath);
         setOpenNavs(!openNavs);
     };
 
