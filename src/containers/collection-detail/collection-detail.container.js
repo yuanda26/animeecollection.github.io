@@ -145,7 +145,6 @@ const CollectionDetailContainer = () => {
                             ) : (
                                 <>
                                     <InputCollection
-                                        autoFocus
                                         type="text"
                                         value={value}
                                         maxLength={100}

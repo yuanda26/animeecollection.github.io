@@ -16,7 +16,7 @@ const CollectionContainer = () => {
     const collection = JSON.parse(localStorage.getItem("collection"));
 
     // Map Collection Data
-    const mappedCollection = collection
+    const mappedCollection = collection ? collection
         .map((item) => {
             const data = {
                 id: item.id,
@@ -38,11 +38,10 @@ const CollectionContainer = () => {
 
             return data;
         })
-        .sort((a, b) => b.updatedAt - a.updatedAt);
+        .sort((a, b) => b.updatedAt - a.updatedAt) : [];
 
     const [value, setValue] = useState("");
     const [mode, setMode] = useState("create");
-    const [keyword, setKeyword] = useState("");
     const [currentId, setCurrentId] = useState(0);
     const [errorText, setError] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
@@ -79,16 +78,24 @@ const CollectionContainer = () => {
                 if (isExist) {
                     setError(`Collection with title '${value}' is already exist!`);
                 } else {
-                    collection.push({
+                    const newCollection = {
                         id: uuidv4(),
                         title: value,
                         items: [],
                         createdAt: new Date().toISOString(),
                         updatedAt: new Date().toISOString(),
-                    });
-    
-                    localStorage.setItem("collection", JSON.stringify(collection));
-                    handleClose();
+                    };
+                    if (mappedCollection.length > 0) {
+                        collection.push(newCollection);
+                        localStorage.setItem("collection", JSON.stringify(collection));
+                        handleClose();
+                    } else {
+                        localStorage.setItem(
+                          "collection",
+                          JSON.stringify([newCollection])
+                        );
+                        handleClose();
+                    }
                 }
             } else if (mode === "update") {
                 const isExist = isCollectionExist(value);
@@ -152,7 +159,6 @@ const CollectionContainer = () => {
                     ) : (
                         <>
                             <InputCollection
-                                autoFocus
                                 type="text"
                                 value={value}
                                 maxLength={100}

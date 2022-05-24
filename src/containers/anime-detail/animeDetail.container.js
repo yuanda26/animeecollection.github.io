@@ -20,7 +20,6 @@ import {
     PopupContentWrapper,
     ListCollection,
     ListItemCollection,
-    PageTitle,
     Wrapper,
 } from "./animeDetail.styled";
 
@@ -68,7 +67,7 @@ const AnimeDetailContainer = () => {
                 }
             } else {
                 return data
-            }        
+            }
         });
 
         // Update to LocalStorage
