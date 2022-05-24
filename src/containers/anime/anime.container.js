@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Wrapper, PageTitle } from "./anime.styled";
-import { Card, Search, Loading, Pagination } from "../../components";
+import { Wrapper } from "./anime.styled";
+import { Card, Navs, Search, Loading, Pagination } from "../../components";
 
 import { usePages } from "../../hooks/usePages";
 
@@ -28,7 +28,7 @@ const AnimeContainer = () => {
     if (loading) return <Loading />;
     return (
         <Wrapper>
-            <PageTitle>Anime</PageTitle>
+            <Navs title="Anime" />
             <Search onChange={setKeyword} handleSearch={handleSearch} />
             <Card data={currentPosts} />
             <Pagination

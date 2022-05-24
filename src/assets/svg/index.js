@@ -1,3 +1,3 @@
-import { Delete, Edit } from "./svg.components";
+import { Delete, Edit, ArrowDown } from "./svg.components";
 
-export { Delete, Edit }
+export { Delete, Edit, ArrowDown }

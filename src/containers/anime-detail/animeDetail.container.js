@@ -26,7 +26,7 @@ import {
 
 import { ParseDate } from "../../utils/utils";
 import { useAnime } from "../../hooks/useAnime";
-import { Popup, Loading } from "../../components";
+import { Popup, Loading, Navs } from "../../components";
 
 const AnimeDetailContainer = () => {
     const { id } = useParams();
@@ -84,7 +84,7 @@ const AnimeDetailContainer = () => {
     return (
         <>
             <Wrapper>
-                <PageTitle>Anime</PageTitle>
+                <Navs title="Anime" />
             </Wrapper>
             <BannerAnime
                 className={css`

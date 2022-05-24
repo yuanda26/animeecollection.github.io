@@ -10,7 +10,7 @@ import {
     Wrapper,
 } from "./collection.styled";
 import { Images } from "../../assets";
-import { Search, CardList, Popup } from "../../components";
+import { Search, CardList, Popup, Navs } from "../../components";
 
 const CollectionContainer = () => {
     const collection = JSON.parse(localStorage.getItem("collection"));
@@ -127,7 +127,7 @@ const CollectionContainer = () => {
 
     return (
         <Wrapper>
-            <PageTitle>Collection</PageTitle>
+            <Navs title="Collection" />
             <Search onChange={setKeyword} handleSearch={handleSearch} />
             <AddNewButton onClick={() => togglePopup("create")}>
                 Create New Collection

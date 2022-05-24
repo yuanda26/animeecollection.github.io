@@ -13,13 +13,13 @@ const Card = (props) => {
                             <SVG.Delete />
                         </DeleteIcon>
                     )}
-                    <Link to={`/${item.id}`}>
+                    <Link to={`/anime/${item.id}`}>
                         <CardImg
                             src={item.coverImage.large}
                             alt={item.title.userPreferred}
                         />
                     </Link>
-                    <Link to={`/${item.id}`}>
+                    <Link to={`/anime/${item.id}`}>
                         <CardTitle>{item.title.userPreferred}</CardTitle>
                     </Link>
                 </MediaCard>

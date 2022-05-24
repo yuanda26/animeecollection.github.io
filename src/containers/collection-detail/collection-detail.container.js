@@ -13,7 +13,7 @@ import {
     InputCollection,
     PopupContentWrapper,
 } from "../collection/collection.styled";
-import { Card, Popup } from "../../components";
+import { Card, Navs, Popup } from "../../components";
 
 const CollectionDetailContainer = () => {
     const { id } = useParams();
@@ -41,7 +41,6 @@ const CollectionDetailContainer = () => {
     }, [id]);
 
     const togglePopup = (mode, id = null) => {
-        console.log(mode, id);
         setMode(mode);
         setShowPopup(!showPopup);
         if (mode === "delete") setCurrentId(id);
@@ -119,6 +118,7 @@ const CollectionDetailContainer = () => {
         <Wrapper>
             {collection ? (
                 <>
+                    <Navs title="Collection" />
                     <PageTitle>{collection.title}</PageTitle>
                     <EditButton onClick={() => togglePopup("update")}>
                         Edit Collection Title
