@@ -73,7 +73,15 @@ const CollectionContainer = () => {
     };
 
     const handleSave = () => {
-        if (value !== "") {
+        if (mode === "delete") {
+            console.log(mode, currentId);
+            const updatedCollection = collection.filter(
+                (item) => item.id !== currentId
+            );
+            localStorage.setItem( "collection", JSON.stringify(updatedCollection));
+
+            handleClose();
+        } else if (value !== "") {
             if (mode === "create") {
                 collection.push({
                     id: uuidv4(),
@@ -92,14 +100,6 @@ const CollectionContainer = () => {
                               updatedAt: new Date().toISOString(),
                           }
                         : item
-                );
-                localStorage.setItem(
-                    "collection",
-                    JSON.stringify(updatedCollection)
-                );
-            } else {
-                const updatedCollection = collection.filter(
-                    (item) => item.id !== currentId
                 );
                 localStorage.setItem(
                     "collection",

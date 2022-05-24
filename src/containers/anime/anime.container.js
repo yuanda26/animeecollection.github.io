@@ -6,12 +6,13 @@ import { usePages } from "../../hooks/usePages";
 
 const AnimeContainer = () => {
     const dataPerPage = 10;
+    const [search, setSearch] = useState("");
     const [keyword, setKeyword] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
     let totalData = 0;
     let currentPosts = [];
-    const { loading, error, data } = usePages(currentPage);
+    const { loading, error, data } = usePages(currentPage, search);
 
     if (error) console.error(error);
     if (!loading) {
@@ -20,7 +21,7 @@ const AnimeContainer = () => {
     }
 
     const handleSearch = () => {
-        if (keyword.length > 2) console.log(keyword);
+        if (keyword.length > 2) setSearch(keyword);
     };
 
     const handlePaginate = (page) => setCurrentPage(page);
@@ -29,7 +30,7 @@ const AnimeContainer = () => {
     return (
         <Wrapper>
             <Navs title="Anime" />
-            <Search onChange={setKeyword} handleSearch={handleSearch} />
+            <Search onChange={setKeyword} value={keyword} handleSearch={handleSearch} />
             <Card data={currentPosts} />
             <Pagination
                 currentPage={currentPage}

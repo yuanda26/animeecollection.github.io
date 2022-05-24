@@ -1,7 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
 
 export const GET_PAGES = gql`
-    query GET_PAGES($page: Int) {
+    query GET_PAGES(
+        $page: Int = 1
+        $search: String
+        $type: MediaType = ANIME
+    ) {
         Page(page: $page, perPage: 10) {
             pageInfo {
                 total
@@ -10,7 +14,7 @@ export const GET_PAGES = gql`
                 lastPage
                 hasNextPage
             }
-            media {
+            media (type: $type, search: $search) {
                 id
                 title {
                     romaji
@@ -32,11 +36,14 @@ export const GET_PAGES = gql`
     }
 `;
 
-export const usePages = (page) => {
+export const usePages = (page, search) => {
+    const variables = {
+        page: page
+    };
+    if (search !== "") variables["search"] = search
+
     const { loading, error, data } = useQuery(GET_PAGES, {
-        variables: {
-            page: page,
-        },
+        variables: variables
     });
 
     return { loading, error, data };

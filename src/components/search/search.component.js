@@ -10,6 +10,7 @@ const Search = (props) => {
                     type="search"
                     name="search"
                     autoComplete="off"
+                    value={props.value}
                     placeholder="Coba 'Naruto Shippuden'"
                     onChange={(e) => props.onChange(e.target.value)}
                 />
